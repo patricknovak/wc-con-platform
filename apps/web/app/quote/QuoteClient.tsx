@@ -116,41 +116,46 @@ export default function QuoteClient() {
     }
 
     setIsSubmitting(true);
-    try {
-      const response = await fetch('/api/quotes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
 
-      if (response.ok) {
-        setSubmitSuccess(true);
-        setFormData({
-          serviceType: '',
-          material: '',
-          quantity: '',
-          unit: 'tons',
-          deliveryAddress: '',
-          deliveryCity: '',
-          deliveryProvince: 'AB',
-          deliveryPostal: '',
-          name: '',
-          email: '',
-          phone: '',
-          company: '',
-          notes: '',
-        });
-      } else {
-        alert('Failed to submit quote request. Please try again.');
-      }
-    } catch (error) {
-      alert('An error occurred. Please try again.');
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Build mailto link with quote details (works with static export)
+    const subject = `Quote Request: ${formData.serviceType} - ${formData.material}`;
+    const body = [
+      `SERVICE: ${formData.serviceType}`,
+      `MATERIAL: ${formData.material}`,
+      `QUANTITY: ${formData.quantity} ${formData.unit}`,
+      '',
+      `DELIVERY ADDRESS:`,
+      `${formData.deliveryAddress}`,
+      `${formData.deliveryCity}, ${formData.deliveryProvince} ${formData.deliveryPostal}`,
+      '',
+      `CONTACT:`,
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      `Phone: ${formData.phone}`,
+      formData.company ? `Company: ${formData.company}` : '',
+      formData.notes ? `\nNotes: ${formData.notes}` : '',
+    ].filter(Boolean).join('\n');
+
+    const mailto = `mailto:admin@wc-con.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(mailto, '_blank');
+
+    setSubmitSuccess(true);
+    setFormData({
+      serviceType: '',
+      material: '',
+      quantity: '',
+      unit: 'tons',
+      deliveryAddress: '',
+      deliveryCity: '',
+      deliveryProvince: 'AB',
+      deliveryPostal: '',
+      name: '',
+      email: '',
+      phone: '',
+      company: '',
+      notes: '',
+    });
+    setIsSubmitting(false);
   };
 
   if (submitSuccess) {

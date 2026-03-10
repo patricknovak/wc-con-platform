@@ -1,0 +1,29 @@
+name: Daily Opportunity Scanner
+
+on:
+  schedule:
+    # Run daily at 6 AM MST (1 PM UTC)
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        working-directory: services/opportunity-scanner
+        run: npm install --legacy-peer-deps
+
+      - name: Run opportunity scanner
+        working-directory: services/opportunity-scanner
+        run: npx ts-node src/index.ts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          NOTIFICATION_EMAIL: admin@wc-con.com

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ChevronRight, MapPin } from 'lucide-react';
-import { useState } from 'react';
 
 export const metadata: Metadata = {
   title: 'Projects & Portfolio',
@@ -29,6 +29,7 @@ const projects = [
     category: 'Commercial',
     location: 'Highway 16, Alberta',
     year: 2023,
+    image: '/images/operations/truck-grader-coalspur-2.webp',
   },
   {
     id: 2,
@@ -36,6 +37,7 @@ const projects = [
     category: 'Residential',
     location: 'Hinton, AB',
     year: 2023,
+    image: '/images/branding/pickup-gravel-pit.webp',
   },
   {
     id: 3,
@@ -43,6 +45,7 @@ const projects = [
     category: 'Industrial',
     location: 'Edson, AB',
     year: 2023,
+    image: '/images/equipment/gravel-crusher-close-up.webp',
   },
   {
     id: 4,
@@ -50,6 +53,7 @@ const projects = [
     category: 'Municipal',
     location: 'Jasper County, AB',
     year: 2022,
+    image: '/images/operations/brule-gravel-trucks-1.webp',
   },
   {
     id: 5,
@@ -57,6 +61,7 @@ const projects = [
     category: 'Commercial',
     location: 'Grande Cache, AB',
     year: 2022,
+    image: '/images/operations/brule-gravel-trucks-2.webp',
   },
   {
     id: 6,
@@ -64,6 +69,7 @@ const projects = [
     category: 'Residential',
     location: 'Hinton, AB',
     year: 2022,
+    image: '/images/materials/mulch.webp',
   },
 ];
 
@@ -84,8 +90,16 @@ export default function ProjectsPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-r from-brand-charcoal to-gray-800 text-white">
-        <div className="container-wide">
+      <section className="relative section-padding bg-brand-charcoal text-white overflow-hidden min-h-[350px] flex items-center">
+        <Image
+          src="/images/services/gallery-banner.webp"
+          alt="Mountain range with gravel truck on western Alberta road"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-charcoal/90 via-brand-charcoal/70 to-transparent" />
+        <div className="relative container-wide">
           <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4">
             Projects & Portfolio
           </h1>
@@ -122,13 +136,14 @@ export default function ProjectsPage() {
                 key={project.id}
                 className="group h-full bg-white border-2 border-gray-200 rounded-lg overflow-hidden hover:border-brand-red hover:shadow-lg transition-all"
               >
-                {/* Image Placeholder */}
-                <div className="h-48 bg-gradient-to-br from-brand-red to-red-700 flex items-center justify-center overflow-hidden relative">
-                  <div className="text-white text-center">
-                    <div className="text-5xl mb-2">🏗️</div>
-                    <p className="text-sm text-red-100">Project Image</p>
-                  </div>
-                  {/* Category Badge */}
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                   <div className="absolute top-4 right-4">
                     <span className="inline-block bg-brand-charcoal text-white px-3 py-1 rounded-full text-xs font-semibold">
                       {project.category}
