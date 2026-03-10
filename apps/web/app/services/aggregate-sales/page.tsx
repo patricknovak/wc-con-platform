@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -123,8 +124,16 @@ export default function AggregateSalesPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-r from-brand-charcoal to-gray-800 text-white">
-        <div className="container-wide">
+      <section className="relative section-padding bg-brand-charcoal text-white overflow-hidden min-h-[350px] flex items-center">
+        <Image
+          src="/images/operations/rock-pit.webp"
+          alt="West Central Contracting rock pit"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-charcoal/90 via-brand-charcoal/70 to-transparent" />
+        <div className="relative container-wide">
           <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4">
             Aggregate Sales
           </h1>

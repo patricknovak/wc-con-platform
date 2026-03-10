@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu, X, Phone, ChevronDown } from 'lucide-react';
 
 const navigation = [
@@ -51,14 +52,15 @@ export function Header() {
       {/* Main nav */}
       <nav className="container-wide px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center">
-              <span className="text-white font-heading font-bold text-sm">WC</span>
-            </div>
-            <div>
-              <p className="font-heading font-bold text-brand-charcoal text-lg leading-tight">West Central</p>
-              <p className="text-xs text-brand-gray-mid leading-tight">Contracting LTD</p>
-            </div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/images/logo/wcc-logo.webp"
+              alt="West Central Contracting LTD"
+              width={180}
+              height={60}
+              className="h-12 lg:h-14 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}

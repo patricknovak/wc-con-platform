@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 const footerLinks = {
@@ -32,14 +33,14 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-brand-red rounded-lg flex items-center justify-center">
-                <span className="text-white font-heading font-bold text-sm">WC</span>
-              </div>
-              <div>
-                <p className="font-heading font-bold text-white text-lg leading-tight">West Central</p>
-                <p className="text-xs text-gray-400 leading-tight">Contracting LTD</p>
-              </div>
+            <div className="mb-4">
+              <Image
+                src="/images/logo/wcc-logo.webp"
+                alt="West Central Contracting LTD"
+                width={180}
+                height={60}
+                className="h-14 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-gray-400 mb-6 max-w-sm">
               Family-owned and operated since 1980. Delivering quality aggregates,

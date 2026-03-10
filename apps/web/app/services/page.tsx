@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Truck,
   Hammer,
@@ -27,7 +28,7 @@ const services = [
       'Professional trucking solutions for aggregates, materials, and equipment transport across western Alberta.',
     icon: Truck,
     href: '/services/trucking',
-    color: 'text-red-600',
+    image: '/images/operations/brule-hills-trucks.webp',
   },
   {
     title: 'Aggregate Sales',
@@ -35,7 +36,7 @@ const services = [
       'Wide selection of high-quality aggregates including road crush, washed rock, pea gravel, and specialty materials.',
     icon: Pickaxe,
     href: '/services/aggregate-sales',
-    color: 'text-red-600',
+    image: '/images/operations/rock-pit.webp',
   },
   {
     title: 'Gravel Crushing',
@@ -43,7 +44,7 @@ const services = [
       'State-of-the-art gravel crushing services producing custom aggregate sizes for your specific project needs.',
     icon: Hammer,
     href: '/services/gravel-crushing',
-    color: 'text-red-600',
+    image: '/images/equipment/crusher.webp',
   },
   {
     title: 'Equipment Rental',
@@ -51,7 +52,7 @@ const services = [
       'Rent quality equipment and machinery for your construction, landscaping, or industrial projects.',
     icon: Wrench,
     href: '/services/equipment-rental',
-    color: 'text-red-600',
+    image: '/images/equipment/dozer.webp',
   },
   {
     title: 'Landscaping Supplies',
@@ -59,7 +60,7 @@ const services = [
       'Premium landscaping materials including topsoil, mulch, decorative stone, and landscaping rocks.',
     icon: Trees,
     href: '/services/landscaping-supplies',
-    color: 'text-red-600',
+    image: '/images/materials/dirt.jpg',
   },
   {
     title: 'Concrete Products',
@@ -67,7 +68,7 @@ const services = [
       'Wide range of concrete products including lego blocks, barriers, and decorative concrete solutions.',
     icon: Zap,
     href: '/services/concrete-products',
-    color: 'text-red-600',
+    image: '/images/operations/wash-pit.webp',
   },
 ];
 
@@ -75,8 +76,16 @@ export default function ServicesPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-r from-brand-charcoal to-gray-800 text-white">
-        <div className="container-wide">
+      <section className="relative section-padding bg-brand-charcoal text-white overflow-hidden min-h-[350px] flex items-center">
+        <Image
+          src="/images/services/services-banner.webp"
+          alt="West Central Contracting gravel truck followed by a grader"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-charcoal/90 via-brand-charcoal/70 to-transparent" />
+        <div className="relative container-wide">
           <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4">
             Our Services
           </h1>
@@ -100,17 +109,28 @@ export default function ServicesPage() {
                   href={service.href}
                   className="group h-full"
                 >
-                  <div className="h-full bg-gray-50 hover:bg-gray-100 rounded-lg p-8 transition-colors duration-200 border border-gray-200 hover:border-brand-red">
-                    <IconComponent className={`${service.color} w-12 h-12 mb-4 group-hover:scale-110 transition-transform`} />
-                    <h2 className="font-heading text-2xl font-bold text-brand-charcoal mb-3 group-hover:text-brand-red transition-colors">
-                      {service.title}
-                    </h2>
-                    <p className="text-gray-700 mb-4 leading-relaxed">
-                      {service.description}
-                    </p>
-                    <div className="inline-flex items-center text-brand-red font-semibold group-hover:translate-x-2 transition-transform">
-                      Learn More
-                      <span className="ml-2">→</span>
+                  <div className="h-full rounded-lg overflow-hidden transition-all duration-200 border border-gray-200 hover:border-brand-red hover:shadow-lg">
+                    <div className="relative h-48 overflow-hidden">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                      <IconComponent className="absolute bottom-3 right-3 h-8 w-8 text-white/80" />
+                    </div>
+                    <div className="p-8">
+                      <h2 className="font-heading text-2xl font-bold text-brand-charcoal mb-3 group-hover:text-brand-red transition-colors">
+                        {service.title}
+                      </h2>
+                      <p className="text-gray-700 mb-4 leading-relaxed">
+                        {service.description}
+                      </p>
+                      <div className="inline-flex items-center text-brand-red font-semibold group-hover:translate-x-2 transition-transform">
+                        Learn More
+                        <span className="ml-2">&rarr;</span>
+                      </div>
                     </div>
                   </div>
                 </Link>

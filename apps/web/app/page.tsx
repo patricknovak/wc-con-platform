@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Truck, Mountain, HardHat, Shovel, TreePine, Box, Phone, ArrowRight, Shield, Award, Clock, Users } from 'lucide-react';
 
 const services = [
@@ -7,36 +8,42 @@ const services = [
     description: 'Heavy hauling with belly dumps, truck & pups, end dumps, lowboys, and winch tractors across western Alberta.',
     icon: Truck,
     href: '/services/trucking-hauling',
+    image: '/images/operations/brule-hills-trucks.webp',
   },
   {
     title: 'Aggregate Sales',
     description: 'Road crush, washed rock, pea gravel, drain rock, rainbow rock, and multiple sand varieties from 7 pit locations.',
     icon: Mountain,
     href: '/services/aggregate-sales',
+    image: '/images/operations/rock-pit.webp',
   },
   {
     title: 'Gravel Crushing',
     description: 'State-of-the-art mobile crushing for custom aggregate sizes. Road base to decorative applications.',
     icon: HardHat,
     href: '/services/gravel-crushing',
+    image: '/images/equipment/crusher.webp',
   },
   {
     title: 'Equipment Rental',
     description: 'Excavators, front-end loaders, skid steers, and dozers available for your project needs.',
     icon: Shovel,
     href: '/services/equipment-rental',
+    image: '/images/equipment/dozer.webp',
   },
   {
     title: 'Landscaping Supplies',
     description: 'Topsoil, decorative stone, mulch, boulders, limestone, and washed stone for residential and commercial projects.',
     icon: TreePine,
     href: '/services/landscaping-supplies',
+    image: '/images/materials/dirt.jpg',
   },
   {
     title: 'Pre-Cast Concrete',
     description: 'Lego blocks, half blocks, flat-top variants, decorative options, and jersey barriers for any application.',
     icon: Box,
     href: '/services/concrete',
+    image: '/images/operations/wash-pit.webp',
   },
 ];
 
@@ -51,8 +58,15 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-brand-charcoal text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-charcoal via-brand-gray-dark to-brand-charcoal" />
+      <section className="relative bg-brand-charcoal text-white overflow-hidden min-h-[600px] flex items-center">
+        <Image
+          src="/images/hero/home-hero.webp"
+          alt="West Central Contracting truck and grader with mountain backdrop"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-charcoal/90 via-brand-charcoal/70 to-transparent" />
         <div className="relative container-wide section-padding py-24 lg:py-32">
           <div className="max-w-3xl">
             <p className="text-brand-red font-semibold text-sm uppercase tracking-wider mb-4">
@@ -62,7 +76,7 @@ export default function HomePage() {
               Aggregates, Trucking &amp; Crushing You Can{' '}
               <span className="text-brand-red">Count On</span>
             </h1>
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl">
+            <p className="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl">
               Family-owned and operated for over 45 years. Delivering quality materials
               and reliable service to Hinton, Edson, Jasper, Grande Cache, and surrounding areas.
             </p>
@@ -111,16 +125,27 @@ export default function HomePage() {
               <Link
                 key={service.title}
                 href={service.href}
-                className="group p-6 rounded-xl border border-brand-gray-light hover:border-brand-red hover:shadow-lg transition-all duration-300"
+                className="group rounded-xl border border-brand-gray-light hover:border-brand-red hover:shadow-lg transition-all duration-300 overflow-hidden"
               >
-                <service.icon className="h-10 w-10 text-brand-red mb-4 group-hover:scale-110 transition-transform" />
-                <h3 className="font-heading text-xl font-bold text-brand-charcoal mb-2">
-                  {service.title}
-                </h3>
-                <p className="text-brand-gray-mid leading-relaxed">{service.description}</p>
-                <span className="inline-flex items-center mt-4 text-brand-red font-semibold text-sm group-hover:gap-2 transition-all">
-                  Learn More <ArrowRight className="ml-1 h-4 w-4" />
-                </span>
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <service.icon className="absolute bottom-3 right-3 h-8 w-8 text-white/80" />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-heading text-xl font-bold text-brand-charcoal mb-2">
+                    {service.title}
+                  </h3>
+                  <p className="text-brand-gray-mid leading-relaxed">{service.description}</p>
+                  <span className="inline-flex items-center mt-4 text-brand-red font-semibold text-sm group-hover:gap-2 transition-all">
+                    Learn More <ArrowRight className="ml-1 h-4 w-4" />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
@@ -140,6 +165,13 @@ export default function HomePage() {
               <p className="font-semibold text-brand-charcoal">Tom Eidt</p>
               <p className="text-brand-gray-mid">Construction Inspector, Canadian Natural Resources</p>
             </div>
+            <Image
+              src="/images/partners/cnrl-logo.webp"
+              alt="Canadian Natural Resources"
+              width={120}
+              height={40}
+              className="mx-auto mt-4 opacity-60"
+            />
           </div>
         </div>
       </section>
@@ -167,23 +199,37 @@ export default function HomePage() {
                 )}
               </ul>
             </div>
-            <div className="bg-brand-cream rounded-2xl p-8 text-center">
-              <Users className="h-16 w-16 text-brand-red mx-auto mb-4" />
-              <h3 className="font-heading text-2xl font-bold mb-2">Business Hub</h3>
-              <p className="text-brand-gray-mid mb-6">
-                Discover trusted local businesses in the Hinton area through our community directory.
-              </p>
-              <Link href="/hub" className="btn-primary">
-                Explore the Hub
-              </Link>
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
+              <Image
+                src="/images/services/gallery-banner.webp"
+                alt="Mountain range with gravel truck on western Alberta road"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8">
+                <h3 className="font-heading text-2xl font-bold text-white mb-2">Business Hub</h3>
+                <p className="text-gray-200 mb-4">
+                  Discover trusted local businesses in the Hinton area through our community directory.
+                </p>
+                <Link href="/hub" className="btn-primary self-start">
+                  Explore the Hub
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-brand-charcoal text-white section-padding">
-        <div className="container-wide text-center">
+      <section className="relative text-white section-padding overflow-hidden">
+        <Image
+          src="/images/branding/pickup-logo-view.webp"
+          alt="West Central Contracting branded truck"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-brand-charcoal/80" />
+        <div className="relative container-wide text-center">
           <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4">
             Ready to Get Started?
           </h2>

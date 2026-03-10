@@ -51,34 +51,22 @@ export default function ContactClient() {
     }
 
     setIsSubmitting(true);
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
 
-      if (response.ok) {
-        setSubmitSuccess(true);
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: '',
-        });
-        setTimeout(() => setSubmitSuccess(false), 5000);
-      } else {
-        alert('Failed to send message. Please try again.');
-      }
-    } catch (error) {
-      alert('An error occurred. Please try again.');
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Build mailto link with form data (works with static export)
+    const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\n${formData.message}`;
+    const mailto = `mailto:admin@wc-con.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
+    window.open(mailto, '_blank');
+
+    setSubmitSuccess(true);
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
+    });
+    setTimeout(() => setSubmitSuccess(false), 5000);
+    setIsSubmitting(false);
   };
 
   return (
@@ -95,19 +83,6 @@ export default function ContactClient() {
           </div>
         </div>
       </div>
-
-      {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-r from-brand-charcoal to-gray-800 text-white">
-        <div className="container-wide">
-          <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-            Contact Us
-          </h1>
-          <p className="text-lg text-gray-200 max-w-2xl">
-            Get in touch with our team. We're here to help with your questions
-            and project needs.
-          </p>
-        </div>
-      </section>
 
       {/* Contact Information & Form */}
       <section className="section-padding">
@@ -174,11 +149,11 @@ export default function ContactClient() {
                     <h3 className="font-heading font-bold text-brand-charcoal mb-2">
                       Business Hours
                     </h3>
-                    <p className="text-gray-700 text-sm space-y-1">
-                      <div>Monday - Friday: 8:00 AM - 5:00 PM</div>
-                      <div>Saturday: By appointment</div>
-                      <div>Sunday: Closed</div>
-                    </p>
+                    <div className="text-gray-700 text-sm space-y-1">
+                      <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+                      <p>Saturday: By appointment</p>
+                      <p>Sunday: Closed</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -311,22 +286,23 @@ export default function ContactClient() {
         </div>
       </section>
 
-      {/* Map Placeholder */}
+      {/* Map */}
       <section className="section-padding bg-gray-50 border-t border-gray-200">
         <div className="container-wide">
           <h2 className="font-heading text-2xl font-bold text-brand-charcoal mb-8">
             Find Us
           </h2>
-          <div className="w-full h-96 bg-gray-300 rounded-lg border border-gray-300 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 font-semibold">
-                Map placeholder - Integrate with Mapbox
-              </p>
-              <p className="text-gray-500 text-sm">
-                450 East River Road, Hinton, AB T7V 2G3
-              </p>
-            </div>
+          <div className="w-full h-96 rounded-lg overflow-hidden border border-gray-300">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2382.5!2d-117.5784!3d53.3964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTPCsDIzJzQ3LjAiTiAxMTfCsDM0JzQyLjIiVw!5e0!3m2!1sen!2sca!4v1700000000000"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="West Central Contracting - 450 East River Road, Hinton, AB"
+            />
           </div>
         </div>
       </section>

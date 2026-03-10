@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ChevronRight,
   Award,
@@ -97,8 +98,16 @@ export default function AboutPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-r from-brand-charcoal to-gray-800 text-white">
-        <div className="container-wide">
+      <section className="relative section-padding bg-brand-charcoal text-white overflow-hidden min-h-[350px] flex items-center">
+        <Image
+          src="/images/operations/truck-grader-coalspur.webp"
+          alt="West Central Contracting truck and grader at Coalspur"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-charcoal/90 via-brand-charcoal/70 to-transparent" />
+        <div className="relative container-wide">
           <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4">
             About West Central Contracting
           </h1>
@@ -144,7 +153,16 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-brand-red to-red-700 rounded-lg p-8 text-white">
+            <div className="relative rounded-lg overflow-hidden">
+              <Image
+                src="/images/operations/wash-pit.webp"
+                alt="West Central Contracting wash pit operations"
+                width={600}
+                height={400}
+                className="w-full h-64 object-cover rounded-lg"
+              />
+            </div>
+            <div className="bg-gradient-to-br from-brand-red to-red-700 rounded-lg p-8 text-white mt-8">
               <h3 className="font-heading text-2xl font-bold mb-6">
                 By the Numbers
               </h3>
@@ -292,9 +310,13 @@ export default function AboutPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="bg-white p-8 rounded-lg border border-gray-200">
-              <div className="w-32 h-32 bg-gray-300 rounded-full mx-auto mb-6 flex items-center justify-center">
-                <span className="text-gray-500">Photo</span>
-              </div>
+              <Image
+                src="/images/community/fundraiser.jpg"
+                alt="West Central Contracting community involvement - Hinton Fire Department Muscular Dystrophy Fundraiser"
+                width={300}
+                height={200}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
               <h3 className="font-heading text-2xl font-bold text-brand-charcoal mb-2 text-center">
                 Todd
               </h3>
