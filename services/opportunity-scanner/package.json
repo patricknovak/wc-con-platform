@@ -1,0 +1,18 @@
+{
+  "name": "@wccon/opportunity-scanner",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "scan": "tsx src/scan.ts",
+    "digest": "tsx src/digest.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "tsx": "^4.0.0"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@wccon/pdf-generator",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "puppeteer": "^21.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}

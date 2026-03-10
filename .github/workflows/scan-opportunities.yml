@@ -1,0 +1,33 @@
+name: Scan Opportunities
+
+on:
+  schedule:
+    - cron: '0 13 * * 1-5'  # 6 AM MST weekdays
+  workflow_dispatch:
+
+jobs:
+  scan:
+    name: Scan RFPs & Tenders
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Run opportunity scanner
+        run: npm run scan --workspace=@wccon/opportunity-scanner
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Generate and send digest
+        run: npm run digest --workspace=@wccon/opportunity-scanner
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          TODD_EMAIL: ${{ secrets.TODD_EMAIL }}
