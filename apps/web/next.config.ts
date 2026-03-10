@@ -1,10 +1,13 @@
 import type { NextConfig } from 'next';
 
+const isPagesExport = process.env.GITHUB_PAGES === 'true';
+
 const nextConfig: NextConfig = {
-  output: 'export',
-  basePath: process.env.GITHUB_PAGES === 'true' ? '/wc-con-platform' : '',
+  output: isPagesExport ? 'export' : undefined,
+  basePath: isPagesExport ? '/wc-con-platform' : '',
+  transpilePackages: ['@wccon/ui', '@wccon/database'],
   images: {
-    unoptimized: true,
+    unoptimized: isPagesExport,
     remotePatterns: [
       { protocol: 'https', hostname: 'wc-con.com' },
       { protocol: 'https', hostname: 'cdn.sanity.io' },
