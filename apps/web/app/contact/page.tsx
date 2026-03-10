@@ -1,19 +1,8 @@
 'use client';
 
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ChevronRight, Phone, Mail, MapPin, Clock } from 'lucide-react';
-
-export const metadata: Metadata = {
-  title: 'Contact Us',
-  description:
-    'Get in touch with West Central Contracting. Call (780) 865-3000 or use our contact form.',
-  openGraph: {
-    title: 'Contact Us | West Central Contracting',
-    description: 'Phone, email, address, and hours for West Central Contracting.',
-  },
-};
 
 interface ContactForm {
   name: string;
@@ -185,11 +174,11 @@ export default function ContactPage() {
                     <h3 className="font-heading font-bold text-brand-charcoal mb-2">
                       Business Hours
                     </h3>
-                    <p className="text-gray-700 text-sm space-y-1">
+                    <div className="text-gray-700 text-sm space-y-1">
                       <div>Monday - Friday: 8:00 AM - 5:00 PM</div>
                       <div>Saturday: By appointment</div>
                       <div>Sunday: Closed</div>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>

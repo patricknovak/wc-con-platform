@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Suspense, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronRight } from 'lucide-react';
@@ -24,6 +24,14 @@ interface FormData {
 }
 
 export default function QuotePage() {
+  return (
+    <Suspense>
+      <QuotePageContent />
+    </Suspense>
+  );
+}
+
+function QuotePageContent() {
   const searchParams = useSearchParams();
   const [currentStep, setCurrentStep] = useState<Step>('service');
   const [isSubmitting, setIsSubmitting] = useState(false);

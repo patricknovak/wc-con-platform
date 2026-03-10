@@ -1,19 +1,8 @@
 'use client';
 
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ChevronRight, Calculator } from 'lucide-react';
-
-export const metadata: Metadata = {
-  title: 'Material Calculator',
-  description:
-    'Calculate aggregate tonnage needed for your project using our material calculator.',
-  openGraph: {
-    title: 'Material Calculator | West Central Contracting',
-    description: 'Estimate aggregate tonnage for your construction project.',
-  },
-};
 
 // Material density in tonnes per cubic yard
 const MATERIAL_DENSITIES: Record<string, number> = {
