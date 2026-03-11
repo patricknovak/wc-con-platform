@@ -67,7 +67,7 @@ const services = [
     description:
       'Wide range of concrete products including lego blocks, barriers, and decorative concrete solutions.',
     icon: Zap,
-    href: '/services/concrete-products',
+    href: '/services/concrete',
     image: '/images/operations/wash-pit.webp',
   },
 ];
