@@ -72,13 +72,13 @@ const jsonLd = {
     streetAddress: '450 East River Road',
     addressLocality: 'Hinton',
     addressRegion: 'AB',
-    postalCode: 'T7V 2G3',
+    postalCode: 'T7V 2A3',
     addressCountry: 'CA',
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 53.3964,
-    longitude: -117.5784,
+    latitude: 53.43531,
+    longitude: -117.53149,
   },
   openingHoursSpecification: [
     {

@@ -104,7 +104,7 @@ export default function ContactClient() {
                     </h3>
                     <p className="text-gray-700">
                       450 East River Road<br />
-                      Hinton, AB T7V 2G3<br />
+                      Hinton, AB T7V 2A3<br />
                       Canada
                     </p>
                   </div>
@@ -294,7 +294,7 @@ export default function ContactClient() {
           </h2>
           <div className="w-full h-96 rounded-lg overflow-hidden border border-gray-300">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2382.5!2d-117.5784!3d53.3964!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTPCsDIzJzQ3LjAiTiAxMTfCsDM0JzQyLjIiVw!5e0!3m2!1sen!2sca!4v1700000000000"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2728.0!2d-117.53149!3d53.43531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x539c8ebdb0bcea6d%3A0x5851f2b476451a5!2s450%20E%20River%20Rd%2C%20Hinton%2C%20AB%20T7V%202A3%2C%20Canada!5e0!3m2!1sen!2sca"
               width="100%"
               height="100%"
               style={{ border: 0 }}

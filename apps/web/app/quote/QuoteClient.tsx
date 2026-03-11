@@ -410,7 +410,7 @@ export default function QuoteClient() {
                       name="deliveryPostal"
                       value={formData.deliveryPostal}
                       onChange={handleInputChange}
-                      placeholder="T7V 2G3"
+                      placeholder="T7V 2A3"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-red"
                     />
                   </div>
