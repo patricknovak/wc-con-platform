@@ -57,7 +57,7 @@ export function Footer() {
                 <Mail className="h-4 w-4 text-brand-red" /> admin@wc-con.com
               </a>
               <p className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-brand-red" /> 450 East River Road, Hinton, AB T7V 2G3
+                <MapPin className="h-4 w-4 text-brand-red" /> 450 East River Road, Hinton, AB T7V 2A3
               </p>
             </div>
           </div>
