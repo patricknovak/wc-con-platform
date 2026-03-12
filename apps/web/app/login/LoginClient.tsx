@@ -12,18 +12,30 @@ export default function LoginClient() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  const DASHBOARD_URL = `${basePath}/dashboard`;
+
+  // Dev credentials for testing — remove before production
+  const DEV_EMAIL = 'dev@wc-con.com';
+  const DEV_PASS = 'dev123';
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setIsLoading(true);
 
-    // Placeholder — will connect to auth provider (e.g. NextAuth, Azure AD, etc.)
     setTimeout(() => {
+      // Dev login bypass for testing
+      if (email === DEV_EMAIL && password === DEV_PASS) {
+        window.location.href = DASHBOARD_URL;
+        return;
+      }
+
       setIsLoading(false);
       setError(
-        'Authentication is being set up. Please contact admin@wc-con.com for access.'
+        'Invalid credentials. For dev access use dev@wc-con.com / dev123'
       );
-    }, 1000);
+    }, 800);
   };
 
   return (
