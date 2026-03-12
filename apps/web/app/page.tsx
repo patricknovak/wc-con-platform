@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Truck, Mountain, HardHat, Shovel, TreePine, Box, Phone, ArrowRight, Shield, Award, Clock, Users } from 'lucide-react';
+import { Truck, Mountain, HardHat, Shovel, TreePine, Box, Phone, ArrowRight, Shield, Award, Clock, Users, MessageCircle } from 'lucide-react';
 
 const services = [
   {
@@ -214,6 +214,54 @@ export default function HomePage() {
                 <Link href="/hub" className="btn-primary self-start">
                   Explore the Hub
                 </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Assistant CTA */}
+      <section className="section-padding bg-gradient-to-br from-brand-charcoal via-gray-800 to-brand-charcoal text-white">
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-brand-red font-semibold text-sm uppercase tracking-wider mb-3">
+                New — AI-Powered
+              </p>
+              <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4">
+                Plan Your Project with Our AI Assistant
+              </h2>
+              <p className="text-gray-300 text-lg mb-6">
+                Chat or speak with our AI assistant to discuss your project, get material
+                recommendations, estimate quantities, and start your quote — available 24/7.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/assistant" className="btn-primary text-lg px-8 py-4">
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  Try the Assistant
+                </Link>
+                <Link href="/calculator" className="btn-secondary border-white text-white hover:bg-white hover:text-brand-charcoal text-lg px-8 py-4">
+                  Material Calculator
+                </Link>
+              </div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+              <div className="space-y-4">
+                {[
+                  { icon: MessageCircle, title: 'Chat Anytime', desc: 'Get instant answers about materials, services, and project planning' },
+                  { icon: Phone, title: 'Voice Conversations', desc: 'Speak naturally with our AI voice agent — like calling the office' },
+                  { icon: ArrowRight, title: 'Straight to Quotes', desc: 'Seamlessly move from project discussion to a formal quote request' },
+                ].map((item) => (
+                  <div key={item.title} className="flex gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-brand-red/20 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="h-5 w-5 text-brand-red" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">{item.title}</p>
+                      <p className="text-sm text-gray-400">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
