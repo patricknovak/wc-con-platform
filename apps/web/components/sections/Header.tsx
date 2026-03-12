@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, Phone, ChevronDown } from 'lucide-react';
+import { Menu, X, Phone, ChevronDown, Lock } from 'lucide-react';
 
 const navigation = [
   {
@@ -47,6 +47,15 @@ export function Header() {
             <a href="tel:7808650068" className="hidden sm:flex items-center gap-1 hover:text-brand-red transition-colors">
               Dispatch: (780) 865-0068
             </a>
+            <span className="hidden sm:inline text-gray-500">|</span>
+            <Link
+              href="/login"
+              className="flex items-center gap-1 hover:text-brand-red transition-colors"
+            >
+              <Lock className="h-3 w-3" />
+              <span className="hidden sm:inline">Employee Login</span>
+              <span className="sm:hidden">Login</span>
+            </Link>
           </div>
         </div>
       </div>
