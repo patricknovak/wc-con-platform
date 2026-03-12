@@ -22,6 +22,7 @@ const navigation = [
   { name: 'Calculator', href: '/calculator' },
   { name: 'AI Assistant', href: '/assistant' },
   { name: 'Business Hub', href: '/hub' },
+  { name: 'Events', href: '/events' },
   { name: 'About', href: '/about' },
   { name: 'Careers', href: '/careers' },
   { name: 'Blog', href: '/blog' },

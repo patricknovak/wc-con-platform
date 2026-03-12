@@ -29,7 +29,7 @@ interface TeamMember {
 
 const TEAM: TeamMember[] = [
   {
-    id: 'EMP-001', name: 'Todd Novak', role: 'Owner / General Manager', department: 'Management',
+    id: 'EMP-001', name: 'Todd Seabrook', role: 'Owner / General Manager', department: 'Management',
     startDate: new Date('1995-06-01'), email: 'todd@wc-con.com', phone: '(780) 865-3000', status: 'active',
     certifications: [
       { name: 'COR Safety Auditor', status: 'current', expiresAt: new Date('2027-03-15') },
