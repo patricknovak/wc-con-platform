@@ -10,17 +10,25 @@ import {
   Mic2,
   Lightbulb,
   BarChart3,
+  MessageSquare,
+  UserPlus,
+  Users,
+  Puzzle,
 } from 'lucide-react';
 import clsx from 'clsx';
 
 const navItems = [
   { href: '/', label: 'Inbox', icon: MailBox },
   { href: '/quotes', label: 'Quotes', icon: FileText },
+  { href: '/conversations', label: 'Conversations', icon: MessageSquare },
   { href: '/opportunities', label: 'Opportunities', icon: Target },
+  { href: '/hiring', label: 'Hiring Pipeline', icon: UserPlus },
+  { href: '/team', label: 'Team', icon: Users },
   { href: '/hub', label: 'Business Hub', icon: Building2 },
   { href: '/voice', label: 'Voice Agent', icon: Mic2 },
   { href: '/intelligence', label: 'Intelligence', icon: Lightbulb },
   { href: '/analytics', label: 'Analytics', icon: BarChart3 },
+  { href: '/integrations', label: 'Integrations', icon: Puzzle },
 ];
 
 export default function Sidebar() {

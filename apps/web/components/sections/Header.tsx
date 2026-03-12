@@ -23,6 +23,7 @@ const navigation = [
   { name: 'AI Assistant', href: '/assistant' },
   { name: 'Business Hub', href: '/hub' },
   { name: 'About', href: '/about' },
+  { name: 'Careers', href: '/careers' },
   { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
