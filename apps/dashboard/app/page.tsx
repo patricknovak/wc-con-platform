@@ -6,9 +6,9 @@ import { formatDistanceToNow } from 'date-fns';
 
 const summaryCards = [
   { label: 'Open Quotes', value: '12', icon: '📄', color: 'bg-blue-50' },
-  { label: 'Voice Agent Calls Today', value: '8', icon: '📞', color: 'bg-green-50' },
+  { label: 'Conversations Today', value: '6', icon: '💬', color: 'bg-green-50' },
   { label: 'Opportunities Matched', value: '3', icon: '🎯', color: 'bg-yellow-50' },
-  { label: 'Hub Applications', value: '2', icon: '🏢', color: 'bg-purple-50' },
+  { label: 'Job Applicants', value: '4', icon: '👤', color: 'bg-purple-50' },
 ];
 
 const priorityActions = [
@@ -35,10 +35,17 @@ const priorityActions = [
   },
   {
     id: 4,
+    title: 'New applicant: Sarah Blackwood — Truck Driver',
+    subtitle: 'AI Score: 92/100 — Top candidate',
+    priority: 'medium',
+    timestamp: new Date(Date.now() - 4 * 60 * 60000),
+  },
+  {
+    id: 5,
     title: 'Hub application: Parkland Electric Ltd',
     subtitle: 'Review and approve',
     priority: 'low',
-    timestamp: new Date(Date.now() - 4 * 60 * 60000),
+    timestamp: new Date(Date.now() - 6 * 60 * 60000),
   },
 ];
 
@@ -50,7 +57,12 @@ const recentActivity = [
   },
   {
     id: 2,
-    event: 'Voice agent captured 2 new leads',
+    event: 'AI assessed resume: Dave Makenzie (Crusher Operator) — Score 95',
+    timestamp: new Date(Date.now() - 60 * 60000),
+  },
+  {
+    id: 6,
+    event: 'Chat widget converted visitor to quote request (driveway project)',
     timestamp: new Date(Date.now() - 90 * 60000),
   },
   {
