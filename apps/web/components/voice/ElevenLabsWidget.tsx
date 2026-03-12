@@ -3,25 +3,28 @@
 import { useEffect } from 'react';
 
 interface ElevenLabsWidgetProps {
-  agentId: string;
+  agentId?: string;
   variant?: 'compact' | 'expanded';
 }
 
 /**
  * ElevenLabs Conversational AI voice widget.
  *
- * This component embeds the ElevenLabs (ElevenAgents) widget that lets
- * visitors have a natural voice conversation with an AI agent.
+ * Uses NEXT_PUBLIC_ELEVENLABS_AGENT_ID from env by default,
+ * or accepts an explicit agentId prop.
  *
- * To configure:
- * 1. Create an agent at https://elevenlabs.io/app/conversational-ai
- * 2. Set the agent's system prompt with WCC knowledge (see docs/elevenlabs-agent-prompt.md)
- * 3. Replace the agentId prop with your agent's ID
- * 4. Set the agent to "Public" or configure domain allowlisting
+ * The voice agent config (persona, greeting, data capture rules) lives in
+ * packages/voice/src/config/agent-config.ts — use that as the source of
+ * truth when configuring the agent in the ElevenLabs dashboard.
+ *
+ * Setup guide: docs/elevenlabs-setup.md
  */
 export function ElevenLabsWidget({ agentId, variant = 'compact' }: ElevenLabsWidgetProps) {
+  const resolvedId = agentId || process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID;
+
   useEffect(() => {
-    // Load the ElevenLabs widget script if not already present
+    if (!resolvedId) return;
+
     const existingScript = document.querySelector(
       'script[src*="elevenlabs/convai-widget-embed"]'
     );
@@ -32,10 +35,12 @@ export function ElevenLabsWidget({ agentId, variant = 'compact' }: ElevenLabsWid
       script.type = 'text/javascript';
       document.body.appendChild(script);
     }
-  }, []);
+  }, [resolvedId]);
+
+  if (!resolvedId) return null;
 
   return (
     // @ts-expect-error -- elevenlabs-convai is a custom web component
-    <elevenlabs-convai agent-id={agentId} variant={variant} />
+    <elevenlabs-convai agent-id={resolvedId} variant={variant} />
   );
 }

@@ -685,12 +685,31 @@ export default function AssistantClient() {
                           The agent knows everything about our services, products, and service area.
                         </p>
                         {/*
-                          Replace YOUR_AGENT_ID with your ElevenLabs agent ID.
+                          Set NEXT_PUBLIC_ELEVENLABS_AGENT_ID in your .env file,
+                          or replace the fallback below with your agent ID.
                           Create your agent at: https://elevenlabs.io/app/conversational-ai
                           See the setup guide in docs/elevenlabs-setup.md
                         */}
-                        {/* @ts-expect-error -- elevenlabs-convai is a custom web component */}
-                        <elevenlabs-convai agent-id="YOUR_AGENT_ID" variant="expanded" />
+                        {process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID ? (
+                          // @ts-expect-error -- elevenlabs-convai is a custom web component
+                          <elevenlabs-convai
+                            agent-id={process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID}
+                            variant="expanded"
+                          />
+                        ) : (
+                          <div className="text-center py-4">
+                            <p className="text-sm text-gray-500 mb-3">
+                              Voice agent not yet configured.
+                            </p>
+                            <a
+                              href="tel:7808653000"
+                              className="inline-flex items-center gap-2 px-4 py-2 bg-brand-red text-white text-sm font-semibold rounded-lg hover:bg-brand-red-dark transition-colors"
+                            >
+                              <Phone className="h-4 w-4" />
+                              Call (780) 865-3000
+                            </a>
+                          </div>
+                        )}
                       </div>
 
                       <div className="text-xs text-gray-400">
