@@ -31,10 +31,12 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
+        working-directory: apps/web
         run: npm install --legacy-peer-deps
 
       - name: Build web app for GitHub Pages
-        run: npx --workspace=@wccon/web next build
+        working-directory: apps/web
+        run: npx next build
         env:
           GITHUB_PAGES: 'true'
 
