@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, Montserrat } from 'next/font/google';
 import './globals.css';
-import { Header } from '@/components/sections/Header';
-import { Footer } from '@/components/sections/Footer';
-import { ChatWidget } from '@/components/chat/ChatWidget';
+import LayoutShell from '@/components/LayoutShell';
 
 const heading = Montserrat({
   subsets: ['latin'],
@@ -121,10 +119,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="font-body">
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <ChatWidget />
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );

@@ -12,7 +12,8 @@ export default function LoginClient() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const DASHBOARD_URL = process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://localhost:3001';
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  const DASHBOARD_URL = `${basePath}/dashboard`;
 
   // Dev credentials for testing — remove before production
   const DEV_EMAIL = 'dev@wc-con.com';
