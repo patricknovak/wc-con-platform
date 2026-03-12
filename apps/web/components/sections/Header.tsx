@@ -20,6 +20,7 @@ const navigation = [
   },
   { name: 'Projects', href: '/projects' },
   { name: 'Calculator', href: '/calculator' },
+  { name: 'AI Assistant', href: '/assistant' },
   { name: 'Business Hub', href: '/hub' },
   { name: 'About', href: '/about' },
   { name: 'Blog', href: '/blog' },
