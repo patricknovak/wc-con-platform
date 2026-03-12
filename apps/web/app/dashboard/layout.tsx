@@ -24,11 +24,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </button>
             <div className="flex items-center gap-3 pl-6 border-l border-gray-200">
               <div className="text-right">
-                <p className="text-sm font-medium text-gray-900">Todd</p>
+                <p className="text-sm font-medium text-gray-900">Todd Seabrook</p>
                 <p className="text-xs text-gray-500">Owner</p>
               </div>
-              <div className="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold">
-                T
+              <div className="w-10 h-10 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-sm">
+                TS
               </div>
             </div>
           </div>

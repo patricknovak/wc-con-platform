@@ -14,6 +14,7 @@ import {
   UserPlus,
   Users,
   Puzzle,
+  Megaphone,
   ArrowLeft,
 } from 'lucide-react';
 import clsx from 'clsx';
@@ -30,6 +31,7 @@ const navItems = [
   { href: `${PREFIX}/hub`, label: 'Business Hub', icon: Building2 },
   { href: `${PREFIX}/voice`, label: 'Voice Agent', icon: Mic2 },
   { href: `${PREFIX}/intelligence`, label: 'Intelligence', icon: Lightbulb },
+  { href: `${PREFIX}/marketing`, label: 'Marketing', icon: Megaphone },
   { href: `${PREFIX}/analytics`, label: 'Analytics', icon: BarChart3 },
   { href: `${PREFIX}/integrations`, label: 'Integrations', icon: Puzzle },
 ];

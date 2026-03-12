@@ -318,14 +318,14 @@ export default function AboutPage() {
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
               <h3 className="font-heading text-2xl font-bold text-brand-charcoal mb-2 text-center">
-                Todd
+                Todd Seabrook
               </h3>
               <p className="text-brand-red font-semibold text-center mb-4">
                 Owner & Operator
               </p>
               <p className="text-gray-700 text-center">
                 With decades of experience in the aggregates and construction
-                industry, Todd leads West Central Contracting with a commitment
+                industry, Todd Seabrook leads West Central Contracting with a commitment
                 to quality, integrity, and customer service.
               </p>
             </div>
