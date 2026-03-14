@@ -8,6 +8,7 @@ import {
   Wrench,
   Trees,
   Zap,
+  Leaf,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -69,6 +70,14 @@ const services = [
     icon: Zap,
     href: '/services/concrete',
     image: '/images/operations/wash-pit.webp',
+  },
+  {
+    title: 'Environmental Remediation',
+    description:
+      'Oil & gas lease reclamation, contaminated soil removal, pipeline ROW restoration, and land clearing services.',
+    icon: Leaf,
+    href: '/services/remediation',
+    image: '/images/operations/rock-pit.webp',
   },
 ];
 

@@ -52,21 +52,42 @@ export default function ContactClient() {
 
     setIsSubmitting(true);
 
-    // Build mailto link with form data (works with static export)
-    const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\n${formData.message}`;
-    const mailto = `mailto:admin@wc-con.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
-    window.open(mailto, '_blank');
+    try {
+      const response = await fetch('https://formspree.io/f/xpwzgkvq', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+          _subject: `WCC Contact: ${formData.subject}`,
+        }),
+      });
 
-    setSubmitSuccess(true);
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: '',
-    });
-    setTimeout(() => setSubmitSuccess(false), 5000);
-    setIsSubmitting(false);
+      if (response.ok) {
+        setSubmitSuccess(true);
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+        setTimeout(() => setSubmitSuccess(false), 5000);
+      } else {
+        // Fallback to mailto
+        const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\n${formData.message}`;
+        const mailto = `mailto:admin@wc-con.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
+        window.open(mailto, '_blank');
+        setSubmitSuccess(true);
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      }
+    } catch {
+      // Fallback to mailto on network error
+      const emailBody = `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\n${formData.message}`;
+      const mailto = `mailto:admin@wc-con.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(mailto, '_blank');
+      setSubmitSuccess(true);
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -150,7 +171,7 @@ export default function ContactClient() {
                       Business Hours
                     </h3>
                     <div className="text-gray-700 text-sm space-y-1">
-                      <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+                      <p>Monday - Friday: 7:00 AM - 5:00 PM</p>
                       <p>Saturday: By appointment</p>
                       <p>Sunday: Closed</p>
                     </div>

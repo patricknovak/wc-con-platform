@@ -176,37 +176,38 @@ export default function CareersClient() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormState('submitting');
 
-    // Build mailto with application details
-    const subject = `Job Application: ${formData.position} — ${formData.name}`;
-    const body = [
-      `POSITION: ${formData.position}`,
-      ``,
-      `APPLICANT:`,
-      `Name: ${formData.name}`,
-      `Email: ${formData.email}`,
-      `Phone: ${formData.phone}`,
-      ``,
-      `COVER LETTER:`,
-      formData.coverLetter || '(See attached file)',
-      ``,
-      resumeFile ? `RESUME: ${resumeFile.name} (please attach)` : '',
-      coverLetterFile ? `COVER LETTER FILE: ${coverLetterFile.name} (please attach)` : '',
-      ``,
-      `Note: File attachments must be sent separately. Please reply to this email with your resume and cover letter attached.`,
-    ]
-      .filter(Boolean)
-      .join('\n');
+    try {
+      const response = await fetch('https://formspree.io/f/xeoqkwrb', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          position: formData.position,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          coverLetter: formData.coverLetter || '(Not provided)',
+          resumeFileName: resumeFile?.name || '(Not uploaded)',
+          _subject: `WCC Job Application: ${formData.position} — ${formData.name}`,
+        }),
+      });
 
-    const mailto = `mailto:careers@wc-con.com?cc=admin@wc-con.com&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailto, '_blank');
+      if (!response.ok) {
+        // Fallback to mailto
+        const subject = `Job Application: ${formData.position} — ${formData.name}`;
+        const body = [`POSITION: ${formData.position}`, '', `Name: ${formData.name}`, `Email: ${formData.email}`, `Phone: ${formData.phone}`, '', `COVER LETTER:`, formData.coverLetter || '(See attached file)'].join('\n');
+        window.open(`mailto:careers@wc-con.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+      }
+    } catch {
+      const subject = `Job Application: ${formData.position} — ${formData.name}`;
+      const body = [`POSITION: ${formData.position}`, '', `Name: ${formData.name}`, `Email: ${formData.email}`, `Phone: ${formData.phone}`].join('\n');
+      window.open(`mailto:careers@wc-con.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+    }
 
-    setTimeout(() => {
-      setFormState('success');
-    }, 500);
+    setFormState('success');
   };
 
   return (

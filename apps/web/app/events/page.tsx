@@ -153,8 +153,20 @@ export default function EventsPage() {
 
   const featuredEvents = events.filter(e => e.featured && isUpcoming(e.date)).sort((a, b) => a.date.localeCompare(b.date));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      await fetch('https://formspree.io/f/xbloyrap', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...submitForm,
+          _subject: `WCC Event Submission: ${submitForm.title}`,
+        }),
+      });
+    } catch {
+      // Silent fallback
+    }
     setSubmitted(true);
     setTimeout(() => {
       setShowSubmitModal(false);

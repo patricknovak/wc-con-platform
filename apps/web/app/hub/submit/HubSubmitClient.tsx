@@ -125,9 +125,20 @@ export default function HubSubmitClient() {
         data.append('logo', formData.logoFile);
       }
 
-      const response = await fetch('/api/hub/submit', {
+      const response = await fetch('https://formspree.io/f/xdkoyepn', {
         method: 'POST',
-        body: data,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          businessName: formData.businessName,
+          contactName: formData.contactName,
+          email: formData.email,
+          phone: formData.phone,
+          website: formData.website,
+          description: formData.description,
+          category: formData.category,
+          serviceAreas: formData.serviceAreas.join(', '),
+          _subject: `WCC Hub Submission: ${formData.businessName}`,
+        }),
       });
 
       if (response.ok) {
