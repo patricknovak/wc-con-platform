@@ -117,43 +117,44 @@ export default function QuoteClient() {
 
     setIsSubmitting(true);
 
-    // Build mailto link with quote details (works with static export)
-    const subject = `Quote Request: ${formData.serviceType} - ${formData.material}`;
-    const body = [
-      `SERVICE: ${formData.serviceType}`,
-      `MATERIAL: ${formData.material}`,
-      `QUANTITY: ${formData.quantity} ${formData.unit}`,
-      '',
-      `DELIVERY ADDRESS:`,
-      `${formData.deliveryAddress}`,
-      `${formData.deliveryCity}, ${formData.deliveryProvince} ${formData.deliveryPostal}`,
-      '',
-      `CONTACT:`,
-      `Name: ${formData.name}`,
-      `Email: ${formData.email}`,
-      `Phone: ${formData.phone}`,
-      formData.company ? `Company: ${formData.company}` : '',
-      formData.notes ? `\nNotes: ${formData.notes}` : '',
-    ].filter(Boolean).join('\n');
+    try {
+      const response = await fetch('https://formspree.io/f/mvgkjwaq', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          serviceType: formData.serviceType,
+          material: formData.material,
+          quantity: `${formData.quantity} ${formData.unit}`,
+          deliveryAddress: `${formData.deliveryAddress}, ${formData.deliveryCity}, ${formData.deliveryProvince} ${formData.deliveryPostal}`,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          notes: formData.notes,
+          _subject: `WCC Quote Request: ${formData.serviceType} - ${formData.material}`,
+        }),
+      });
 
-    const mailto = `mailto:admin@wc-con.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailto, '_blank');
+      if (response.ok) {
+        setSubmitSuccess(true);
+      } else {
+        // Fallback to mailto
+        const subject = `Quote Request: ${formData.serviceType} - ${formData.material}`;
+        const body = [`SERVICE: ${formData.serviceType}`, `MATERIAL: ${formData.material}`, `QUANTITY: ${formData.quantity} ${formData.unit}`, '', `DELIVERY: ${formData.deliveryAddress}, ${formData.deliveryCity}, ${formData.deliveryProvince} ${formData.deliveryPostal}`, '', `Name: ${formData.name}`, `Email: ${formData.email}`, `Phone: ${formData.phone}`, formData.company ? `Company: ${formData.company}` : '', formData.notes ? `Notes: ${formData.notes}` : ''].filter(Boolean).join('\n');
+        window.open(`mailto:admin@wc-con.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+        setSubmitSuccess(true);
+      }
+    } catch {
+      const subject = `Quote Request: ${formData.serviceType} - ${formData.material}`;
+      const body = [`SERVICE: ${formData.serviceType}`, `MATERIAL: ${formData.material}`, `QUANTITY: ${formData.quantity} ${formData.unit}`, '', `DELIVERY: ${formData.deliveryAddress}, ${formData.deliveryCity}, ${formData.deliveryProvince} ${formData.deliveryPostal}`, '', `Name: ${formData.name}`, `Email: ${formData.email}`, `Phone: ${formData.phone}`].join('\n');
+      window.open(`mailto:admin@wc-con.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+      setSubmitSuccess(true);
+    }
 
-    setSubmitSuccess(true);
     setFormData({
-      serviceType: '',
-      material: '',
-      quantity: '',
-      unit: 'tons',
-      deliveryAddress: '',
-      deliveryCity: '',
-      deliveryProvince: 'AB',
-      deliveryPostal: '',
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      notes: '',
+      serviceType: '', material: '', quantity: '', unit: 'tons',
+      deliveryAddress: '', deliveryCity: '', deliveryProvince: 'AB', deliveryPostal: '',
+      name: '', email: '', phone: '', company: '', notes: '',
     });
     setIsSubmitting(false);
   };

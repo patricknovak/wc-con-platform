@@ -141,8 +141,24 @@ export default function HubPage() {
     return matchCategory && matchSearch;
   });
 
-  const handleQuoteSubmit = (e: React.FormEvent) => {
+  const handleQuoteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      await fetch('https://formspree.io/f/xwpoyzdl', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: quoteForm.name,
+          email: quoteForm.email,
+          phone: quoteForm.phone,
+          message: quoteForm.message,
+          businessName: quoteModal?.businessName,
+          _subject: `WCC Hub Quote Request: ${quoteModal?.businessName}`,
+        }),
+      });
+    } catch {
+      // Silent fallback — still show success
+    }
     setQuoteSubmitted(true);
     setTimeout(() => {
       setQuoteModal(null);

@@ -10,6 +10,15 @@ const footerLinks = {
     { name: 'Equipment Rental', href: '/services/equipment-rental' },
     { name: 'Landscaping Supplies', href: '/services/landscaping-supplies' },
     { name: 'Pre-Cast Concrete', href: '/services/concrete' },
+    { name: 'Environmental Remediation', href: '/services/remediation' },
+  ],
+  serviceAreas: [
+    { name: 'Hinton', href: '/service-areas/hinton' },
+    { name: 'Edson', href: '/service-areas/edson' },
+    { name: 'Jasper', href: '/service-areas/jasper' },
+    { name: 'Grande Cache', href: '/service-areas/grande-cache' },
+    { name: 'Whitecourt', href: '/service-areas/whitecourt' },
+    { name: 'Drayton Valley', href: '/service-areas/drayton-valley' },
   ],
   company: [
     { name: 'About Us', href: '/about' },
@@ -30,7 +39,7 @@ export function Footer() {
   return (
     <footer className="bg-brand-charcoal text-gray-300">
       <div className="container-wide px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="mb-4">
@@ -81,6 +90,20 @@ export function Footer() {
             <h3 className="font-heading font-bold text-white mb-4">Company</h3>
             <ul className="space-y-2">
               {footerLinks.company.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="hover:text-white transition-colors text-sm">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Service Areas */}
+          <div>
+            <h3 className="font-heading font-bold text-white mb-4">Service Areas</h3>
+            <ul className="space-y-2">
+              {footerLinks.serviceAreas.map((link) => (
                 <li key={link.name}>
                   <Link href={link.href} className="hover:text-white transition-colors text-sm">
                     {link.name}

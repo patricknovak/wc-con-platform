@@ -14,6 +14,51 @@ export const metadata: Metadata = {
 
 const posts = [
   {
+    id: 7,
+    title: 'Jasper Recovery 2026: How Local Suppliers Are Supporting Rebuilding',
+    excerpt:
+      'After the devastating 2024 wildfire, Jasper is rebuilding with $383M+ in federal investment. Learn how West Central Contracting is supporting campground reconstruction, housing, and infrastructure restoration.',
+    date: 'March 10, 2026',
+    slug: 'jasper-recovery-2026-local-suppliers',
+    category: 'Industry',
+  },
+  {
+    id: 8,
+    title: 'Pipeline Construction in Western Alberta: Aggregate & Trucking Needs',
+    excerpt:
+      'The Yellowhead Mainline Natural Gas Pipeline is bringing 2,000+ construction jobs to our region. Here is what contractors need to know about aggregate supply and trucking for pipeline projects.',
+    date: 'March 3, 2026',
+    slug: 'pipeline-construction-western-alberta',
+    category: 'Industry',
+  },
+  {
+    id: 9,
+    title: 'Spring 2026 Landscaping Guide: Materials for Your Hinton Property',
+    excerpt:
+      'Spring is here! Get your yard ready with the right topsoil, mulch, decorative stone, and landscaping rock. Our guide covers material selection, quantities, and pricing for Hinton-area homeowners.',
+    date: 'February 24, 2026',
+    slug: 'spring-2026-landscaping-guide-hinton',
+    category: 'Landscaping',
+  },
+  {
+    id: 10,
+    title: 'How to Order Aggregate Online: A Contractor\'s Guide',
+    excerpt:
+      'Ordering construction materials online saves time and money. Learn how to use our new online ordering system to get aggregate, sand, and gravel delivered to your job site.',
+    date: 'February 10, 2026',
+    slug: 'order-aggregate-online-contractors-guide',
+    category: 'Materials',
+  },
+  {
+    id: 11,
+    title: 'Understanding Delivery Zones: Getting Materials to Your Site',
+    excerpt:
+      'From Hinton to Jasper, Edson to Grande Cache — delivery distances affect pricing. Learn about our delivery zones, minimum orders, and how to get the best rate for your project.',
+    date: 'January 27, 2026',
+    slug: 'understanding-delivery-zones',
+    category: 'Materials',
+  },
+  {
     id: 1,
     title: 'How to Choose the Right Gravel for Your Driveway',
     excerpt:
