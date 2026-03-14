@@ -15,22 +15,15 @@ import {
   TreePine,
   Gem,
   Shield,
-  Calculator,
+  Clock,
+  Users,
 } from 'lucide-react';
-
-/* SEO metadata for "order aggregate online hinton" —
-   set via layout.tsx or generateMetadata in a parent route segment:
-   title: "Order Aggregates Online | Hinton AB | West Central Contracting"
-   description: "Order road crush, gravel, sand, topsoil and landscaping materials
-   online from West Central Contracting in Hinton, AB. Bulk aggregate delivery
-   across western Alberta since 1980."
-*/
 
 const materials = [
   {
     name: 'Road Crush (3/4")',
     description:
-      'Fine crushed aggregate ideal for driveways, walkways, and compacting base layers. Excellent drainage and stability.',
+      'Fine crushed aggregate ideal for driveways, walkways, and compacting base layers. Excellent drainage and stability. Our most popular product for residential and light commercial use.',
     sizes: '3/4" minus',
     priceFrom: 18,
     minOrder: '10 tonnes',
@@ -39,7 +32,7 @@ const materials = [
   {
     name: 'Road Crush (1.5")',
     description:
-      'Medium crushed rock for road base, parking lots, and heavy-traffic surfaces. Angular profile locks tight under compaction.',
+      'Medium crushed rock for road base, parking lots, and heavy-traffic surfaces. Angular profile locks tight under compaction for maximum load-bearing capacity.',
     sizes: '1.5" minus',
     priceFrom: 16,
     minOrder: '10 tonnes',
@@ -48,7 +41,7 @@ const materials = [
   {
     name: 'Road Crush (2.5")',
     description:
-      'Coarse crushed aggregate for deep base fill, road subgrade, and heavy industrial site pad foundations. Maximum load-bearing capacity.',
+      'Heavy-duty base material for industrial site pads, deep road subgrade, and large-scale construction projects requiring maximum structural support.',
     sizes: '2.5" minus',
     priceFrom: 14,
     minOrder: '10 tonnes',
@@ -57,7 +50,7 @@ const materials = [
   {
     name: 'Pit Run Gravel',
     description:
-      'Unprocessed natural gravel straight from the pit. Cost-effective for fill, backfill, and rough grading applications.',
+      'Unprocessed natural gravel straight from the pit. Cost-effective for fill, backfill, rough grading, and large-volume earthwork applications.',
     sizes: 'Mixed natural',
     priceFrom: 12,
     minOrder: '10 tonnes',
@@ -66,7 +59,7 @@ const materials = [
   {
     name: 'Washed Rock',
     description:
-      'Clean, washed aggregate for landscaping, drainage systems, and decorative applications. Available in multiple sizes.',
+      'Clean, washed aggregate for landscaping, drainage systems, French drains, and decorative applications. Available in multiple sizes for any project.',
     sizes: '1/2" to 2"',
     priceFrom: 24,
     minOrder: '5 tonnes',
@@ -75,7 +68,7 @@ const materials = [
   {
     name: 'Sand',
     description:
-      'Screened sand for concrete mixing, pipe bedding, paving stone installation, and general construction applications.',
+      'Screened sand for concrete mixing, pipe bedding, paving stone installation, playground surfacing, and general construction applications.',
     sizes: 'Fine & coarse',
     priceFrom: 15,
     minOrder: '5 tonnes',
@@ -84,7 +77,7 @@ const materials = [
   {
     name: 'Topsoil',
     description:
-      'Rich, screened topsoil for lawns, gardens, raised beds, and landscaping projects. Promotes healthy plant growth.',
+      'Rich, screened topsoil for lawns, gardens, raised beds, and landscaping projects. Promotes healthy plant growth and retains moisture effectively.',
     sizes: 'Screened',
     priceFrom: 25,
     minOrder: '5 cubic yards',
@@ -93,7 +86,7 @@ const materials = [
   {
     name: 'Mulch',
     description:
-      'Natural wood mulch for garden beds, pathways, and playground surfaces. Retains moisture and suppresses weeds.',
+      'Natural wood mulch for garden beds, pathways, and playground surfaces. Retains moisture, suppresses weeds, and adds organic matter to soil over time.',
     sizes: 'Standard chip',
     priceFrom: 30,
     minOrder: '5 cubic yards',
@@ -102,7 +95,7 @@ const materials = [
   {
     name: 'Decorative Stone',
     description:
-      'Rainbow rock, river rock, and specialty decorative stone for premium landscaping, water features, and accent areas.',
+      'Rainbow rock, river rock, and specialty decorative stone for premium landscaping, water features, accent areas, and architectural applications.',
     sizes: 'Various',
     priceFrom: 35,
     minOrder: '3 tonnes',
@@ -111,7 +104,7 @@ const materials = [
   {
     name: 'Rip Rap',
     description:
-      'Large angular rock for shoreline protection, slope stabilization, culvert armoring, and erosion control projects.',
+      'Large angular rock for shoreline protection, slope stabilization, culvert armoring, erosion control, and retaining wall construction projects.',
     sizes: '6" to 24"',
     priceFrom: 22,
     minOrder: '10 tonnes',
@@ -172,7 +165,7 @@ export default function OrderPage() {
           <p className="text-lg text-gray-200 max-w-2xl mb-6">
             Browse our full catalog of aggregates, sand, landscaping materials,
             and specialty products. Available for pickup or delivery across
-            western Alberta from our yard at 450 East River Road, Hinton, AB.
+            western Alberta from our Hinton, AB yard at 450 East River Road.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
@@ -198,10 +191,10 @@ export default function OrderPage() {
           <h2 className="font-heading text-3xl font-bold text-brand-charcoal mb-4">
             Materials Catalog
           </h2>
-          <p className="text-brand-gray-mid mb-12 max-w-3xl">
+          <p className="text-gray-700 mb-12 max-w-3xl">
             Quality aggregates and landscaping materials from West Central
-            Contracting. Family-owned by Todd Seabrook and serving Hinton, Edson,
-            Jasper, Grande Cache, and all of western Alberta since 1980.
+            Contracting. Family-owned and serving Hinton, Edson, Jasper, Grande
+            Cache, and all of western Alberta since 1980.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {materials.map((material) => {
@@ -209,7 +202,7 @@ export default function OrderPage() {
               return (
                 <div
                   key={material.name}
-                  className="bg-brand-cream border-2 border-gray-200 rounded-lg p-8 hover:border-brand-red transition-colors hover:shadow-lg flex flex-col"
+                  className="bg-white border-2 border-gray-200 rounded-lg p-8 hover:border-brand-red transition-colors hover:shadow-lg flex flex-col"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <IconComponent className="w-10 h-10 text-brand-red" />
@@ -226,7 +219,7 @@ export default function OrderPage() {
                   <p className="text-sm text-brand-red font-semibold mb-3">
                     Sizes: {material.sizes}
                   </p>
-                  <p className="text-brand-gray-mid text-sm mb-4 flex-1">
+                  <p className="text-gray-700 text-sm mb-4 flex-1">
                     {material.description}
                   </p>
                   <div className="text-xs text-brand-gray-mid mb-4">
@@ -259,7 +252,8 @@ export default function OrderPage() {
               <p className="text-gray-300 text-lg mb-6">
                 Ordering 10+ loads? Contractors and commercial customers receive
                 volume discounts on all aggregate products. The more you order,
-                the more you save.
+                the more you save. Contact Todd Seabrook or our dispatch team to
+                set up your account.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
@@ -268,7 +262,7 @@ export default function OrderPage() {
                   'Priority scheduling for repeat customers',
                   'Net 30 terms available for qualified accounts',
                   'Custom material specs processed to your requirements',
-                  'Seasonal contracts for ongoing projects',
+                  'Consistent supply from 7 pit locations',
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-brand-red mt-0.5 flex-shrink-0" />
@@ -289,30 +283,44 @@ export default function OrderPage() {
               </h3>
               <div className="space-y-5">
                 <div className="border-b border-gray-600 pb-4">
-                  <div className="text-3xl font-bold text-brand-red">
-                    10+ Loads
+                  <div className="flex items-center gap-3">
+                    <Users className="w-6 h-6 text-brand-red" />
+                    <div className="text-3xl font-bold text-brand-red">
+                      10+ Loads
+                    </div>
                   </div>
-                  <p className="text-gray-400">Volume pricing unlocked</p>
+                  <p className="text-gray-400 mt-1">Volume pricing unlocked</p>
                 </div>
                 <div className="border-b border-gray-600 pb-4">
-                  <div className="text-3xl font-bold text-brand-red">
-                    Same Day
+                  <div className="flex items-center gap-3">
+                    <Clock className="w-6 h-6 text-brand-red" />
+                    <div className="text-3xl font-bold text-brand-red">
+                      Same Day
+                    </div>
                   </div>
-                  <p className="text-gray-400">
+                  <p className="text-gray-400 mt-1">
                     Priority dispatch for contractors
                   </p>
                 </div>
                 <div className="border-b border-gray-600 pb-4">
-                  <div className="text-3xl font-bold text-brand-red">
-                    7 Pits
+                  <div className="flex items-center gap-3">
+                    <Mountain className="w-6 h-6 text-brand-red" />
+                    <div className="text-3xl font-bold text-brand-red">
+                      7 Pits
+                    </div>
                   </div>
-                  <p className="text-gray-400">Consistent supply guaranteed</p>
+                  <p className="text-gray-400 mt-1">
+                    Consistent supply guaranteed
+                  </p>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-brand-red">
-                    Net 30
+                  <div className="flex items-center gap-3">
+                    <DollarSign className="w-6 h-6 text-brand-red" />
+                    <div className="text-3xl font-bold text-brand-red">
+                      Net 30
+                    </div>
                   </div>
-                  <p className="text-gray-400">
+                  <p className="text-gray-400 mt-1">
                     Credit terms for qualified accounts
                   </p>
                 </div>
@@ -331,9 +339,10 @@ export default function OrderPage() {
               Delivery Zones & Pricing
             </h2>
           </div>
-          <p className="text-brand-gray-mid mb-8 max-w-3xl">
+          <p className="text-gray-700 mb-8 max-w-3xl">
             We deliver throughout western Alberta from our base at 450 East
             River Road, Hinton, AB. Delivery surcharges vary by distance.
+            Contact dispatch at (780) 865-0068 for scheduling.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {deliveryZones.map((zone) => (
@@ -353,11 +362,11 @@ export default function OrderPage() {
             ))}
           </div>
           <div className="mt-8 bg-white p-6 rounded-lg border-l-4 border-brand-red">
-            <p className="text-brand-gray-mid">
-              <strong className="text-brand-charcoal">Pickup available</strong>{' '}
-              at our Hinton yard during business hours (Monday&ndash;Friday,
-              7 AM &ndash; 5 PM). No minimum for pickup orders. Contact us for
-              delivery quotes outside listed zones.
+            <p className="text-gray-700">
+              <strong>Pickup available</strong> at our Hinton yard during
+              business hours (Monday-Friday, 7 AM - 5 PM). No minimum for
+              pickup orders. Contact us for delivery quotes outside listed
+              zones.
             </p>
           </div>
         </div>
@@ -377,9 +386,8 @@ export default function OrderPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/calculator"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-white text-brand-red font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-3 bg-white text-brand-red font-semibold rounded-lg hover:bg-gray-100 transition-colors"
             >
-              <Calculator className="w-5 h-5" />
               Material Calculator
             </Link>
             <Link
