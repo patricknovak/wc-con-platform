@@ -14,6 +14,10 @@ import {
   Flame,
   FileCheck,
   AlertTriangle,
+  Shovel,
+  Sprout,
+  Truck,
+  Mountain,
 } from 'lucide-react';
 
 const services = [
@@ -57,45 +61,93 @@ const services = [
     ],
   },
   {
-    name: 'Post-Fire Land Clearing',
-    icon: Flame,
+    name: 'Land Clearing',
+    icon: Shovel,
     description:
-      'Debris removal, hazard tree clearing, and site stabilization following wildfire events. We help landowners and operators restore fire-damaged properties and lease sites.',
+      'Professional land clearing for development, lease preparation, and remediation projects. We handle everything from initial clearing through grubbing and site preparation.',
     details: [
-      'Burned timber and debris removal',
-      'Hazard tree assessment and felling',
-      'Erosion control installation',
-      'Site stabilization and grading',
-      'Revegetation planning',
+      'Timber and brush clearing',
+      'Stump removal and grubbing',
+      'Debris disposal and burning',
+      'Site grading and preparation',
+      'Salvage timber management',
     ],
   },
   {
-    name: 'Environmental Compliance',
-    icon: FileCheck,
+    name: 'Erosion Control',
+    icon: Mountain,
     description:
-      'Ongoing environmental compliance support for active operations. We help clients meet regulatory requirements and maintain their environmental standing with Alberta authorities.',
+      'Comprehensive erosion control solutions for disturbed sites, slopes, and watercourse crossings. We design and install systems that meet Alberta regulatory requirements and protect sensitive environments.',
     details: [
-      'Environmental monitoring programs',
-      'Regulatory compliance audits',
-      'Spill response and cleanup',
-      'Waste management planning',
-      'Reporting and documentation',
+      'Silt fence and sediment barrier installation',
+      'Slope stabilization and armouring',
+      'Watercourse crossing protection',
+      'Drainage channel construction',
+      'Ongoing monitoring and maintenance',
     ],
   },
+  {
+    name: 'Revegetation',
+    icon: Sprout,
+    description:
+      'Native seed mix application and revegetation programs tailored to western Alberta ecosystems. We restore disturbed lands to productive, self-sustaining plant communities.',
+    details: [
+      'Native seed mix selection and sourcing',
+      'Seedbed preparation and amendment',
+      'Hydroseeding and drill seeding',
+      'Invasive species management',
+      'Multi-year monitoring programs',
+    ],
+  },
+];
+
+const caseStudies = [
+  {
+    title: 'Multi-Well Lease Reclamation — Yellowhead County',
+    description:
+      'Reclaimed 12 abandoned wellsites across Yellowhead County over two seasons. Work included contaminated soil removal from three sites, terrain recontouring, topsoil replacement, and revegetation with native seed mixes. All 12 sites received reclamation certificates from Alberta Environment.',
+    stats: ['12 wellsites reclaimed', '2 seasons to complete', '100% certification rate'],
+  },
+  {
+    title: 'Pipeline ROW Restoration — Highway 16 Corridor',
+    description:
+      'Restored 28 km of pipeline right-of-way following a major pipeline replacement project. Scope included terrain recontouring, drainage restoration, erosion control installation, and revegetation. Work was completed on schedule with zero environmental incidents.',
+    stats: ['28 km ROW restored', 'Zero environmental incidents', 'On-schedule completion'],
+  },
+  {
+    title: 'Contaminated Soil Remediation — Industrial Site Near Edson',
+    description:
+      'Excavated and transported over 5,000 tonnes of hydrocarbon-contaminated soil from a former industrial facility. Constructed an on-site bioremediation cell for treatment of lower-concentration soils. Full chain of custody documentation provided for all materials.',
+    stats: ['5,000+ tonnes removed', 'On-site biocell constructed', 'Full regulatory compliance'],
+  },
+];
+
+const equipment = [
+  'Excavators (multiple sizes from 20T to 50T)',
+  'Dozers for land clearing and grading',
+  'Belly dump and end dump trucks for soil hauling',
+  'Rock trucks for off-road material transport',
+  'Graders for fine grading and recontouring',
+  'Hydroseeders for revegetation applications',
+  'Skid steers for confined area work',
+  'Lowbed trailers for equipment mobilization',
 ];
 
 const certifications = [
   {
     name: 'COR Certified',
-    description: 'Certificate of Recognition for occupational health and safety excellence in Alberta.',
+    description:
+      'Certificate of Recognition for occupational health and safety excellence in Alberta.',
   },
   {
     name: 'ISNetworld',
-    description: 'International safety and environmental compliance verification for contractor management.',
+    description:
+      'International safety and environmental compliance verification for contractor management.',
   },
   {
     name: 'ComplyWorks',
-    description: 'Comprehensive compliance management system for safety, insurance, and regulatory requirements.',
+    description:
+      'Comprehensive compliance management system for safety, insurance, and regulatory requirements.',
   },
 ];
 
@@ -103,7 +155,7 @@ const faqs = [
   {
     question: 'What types of remediation projects do you handle?',
     answer:
-      'We handle oil and gas lease reclamation, contaminated soil removal, pipeline right-of-way restoration, post-fire land clearing, and ongoing environmental compliance support. Our team has extensive experience with Alberta regulatory requirements.',
+      'We handle oil and gas lease reclamation, contaminated soil removal, pipeline right-of-way restoration, land clearing, erosion control, and revegetation. Our team has extensive experience with Alberta Environment and Parks regulatory requirements across all project types.',
   },
   {
     question: 'Are you qualified for oil and gas remediation work?',
@@ -111,14 +163,19 @@ const faqs = [
       'Yes. We are COR Certified, ISNetworld compliant, and registered with ComplyWorks. We have over 40 years of experience working with oil and gas operators throughout western Alberta and understand the regulatory landscape thoroughly.',
   },
   {
-    question: 'What areas do you serve for remediation projects?',
+    question: 'What equipment do you have available for remediation projects?',
     answer:
-      'We serve the entire western Alberta region including Hinton, Edson, Grande Cache, Whitecourt, and surrounding Yellowhead and Woodlands counties. We regularly work on remote lease sites and pipeline corridors throughout the area.',
+      'We maintain a full fleet of excavators (20T to 50T), dozers, graders, belly dumps, end dumps, rock trucks, skid steers, hydroseeders, and lowbed trailers. Having our own equipment means we can mobilize quickly and control costs for our clients.',
+  },
+  {
+    question: 'Do you comply with Alberta Environment regulations?',
+    answer:
+      'Absolutely. All our remediation work is performed in full compliance with Alberta Environment and Parks regulations, including the Environmental Protection and Enhancement Act (EPEA) and Alberta Energy Regulator (AER) directives. We provide complete documentation for regulatory submissions.',
   },
   {
     question: 'How do I get started with a remediation project?',
     answer:
-      'Contact us at (780) 865-3000 or submit a quote request online. We will discuss your project scope, visit the site if needed, and provide a detailed proposal including timeline and pricing.',
+      'Contact us at (780) 865-3000 or submit a quote request online. We will discuss your project scope, visit the site if needed, and provide a detailed proposal including timeline, equipment plan, and pricing.',
   },
 ];
 
@@ -150,12 +207,27 @@ export default function RemediationPage() {
           <h1 className="font-heading text-4xl md:text-5xl font-bold mb-4">
             Environmental Remediation Services
           </h1>
-          <p className="text-lg text-gray-200 max-w-2xl">
+          <p className="text-lg text-gray-200 max-w-2xl mb-8">
             Comprehensive environmental remediation and reclamation services for
-            oil &amp; gas, pipeline, and industrial clients across western Alberta.
-            COR Certified, ISNetworld compliant, and backed by 40+ years of
-            experience.
+            oil &amp; gas, pipeline, and industrial clients across western
+            Alberta. From lease reclamation and contaminated soil removal to
+            land clearing, erosion control, and revegetation — COR Certified,
+            ISNetworld compliant, and backed by 40+ years of experience.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              href="/quote"
+              className="btn-primary inline-flex items-center justify-center px-8 py-3 font-semibold rounded-lg"
+            >
+              Request a Quote
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors"
+            >
+              Contact Us
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -183,7 +255,7 @@ export default function RemediationPage() {
               </h3>
               <p className="text-gray-700">
                 Committed to restoring disturbed lands to productive use while
-                meeting all Alberta regulatory standards.
+                meeting all Alberta Environment and Parks standards.
               </p>
             </div>
             <div className="bg-white p-8 rounded-lg border border-gray-200 hover:border-brand-red hover:shadow-lg transition-all">
@@ -193,7 +265,7 @@ export default function RemediationPage() {
               </h3>
               <p className="text-gray-700">
                 Deep understanding of western Alberta terrain, soil conditions,
-                and vegetation patterns for effective reclamation.
+                and native vegetation patterns for effective reclamation.
               </p>
             </div>
             <div className="bg-white p-8 rounded-lg border border-gray-200 hover:border-brand-red hover:shadow-lg transition-all">
@@ -202,8 +274,8 @@ export default function RemediationPage() {
                 Full Documentation
               </h3>
               <p className="text-gray-700">
-                Complete project documentation, reporting, and compliance records
-                for regulatory submissions.
+                Complete project documentation, reporting, and compliance
+                records for regulatory submissions and reclamation certificates.
               </p>
             </div>
           </div>
@@ -240,7 +312,10 @@ export default function RemediationPage() {
                       </h4>
                       <ul className="space-y-2">
                         {service.details.map((detail) => (
-                          <li key={detail} className="flex items-start text-sm text-gray-700">
+                          <li
+                            key={detail}
+                            className="flex items-start text-sm text-gray-700"
+                          >
                             <CheckCircle className="w-4 h-4 text-brand-red mr-2 mt-0.5 flex-shrink-0" />
                             {detail}
                           </li>
@@ -255,23 +330,118 @@ export default function RemediationPage() {
         </div>
       </section>
 
-      {/* Certifications */}
+      {/* Alberta Environment Compliance */}
+      <section className="section-padding bg-gray-50">
+        <div className="container-wide">
+          <h2 className="font-heading text-3xl font-bold text-brand-charcoal mb-8">
+            Alberta Environment Regulatory Compliance
+          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div className="space-y-4 text-gray-700">
+              <p>
+                All our remediation work is performed in strict compliance with
+                Alberta&apos;s environmental regulatory framework. We work
+                within the requirements of the Environmental Protection and
+                Enhancement Act (EPEA), Alberta Energy Regulator (AER)
+                directives, and Alberta Environment and Parks guidelines.
+              </p>
+              <p>
+                Our team maintains current knowledge of evolving regulations and
+                best practices. We handle all documentation, reporting, and
+                regulatory submissions on behalf of our clients, ensuring a
+                smooth path to reclamation certification.
+              </p>
+              <div className="space-y-2 mt-6">
+                {[
+                  'EPEA compliance for all remediation activities',
+                  'AER Directive 001 compliance for contaminated sites',
+                  'Alberta Tier 1 and Tier 2 soil guidelines',
+                  'Reclamation certificate application preparation',
+                  'Environmental site assessment support',
+                  'Spill response and emergency cleanup capability',
+                ].map((item) => (
+                  <div key={item} className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-brand-red mr-3 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="font-heading text-xl font-bold text-brand-charcoal mb-6">
+                Certifications &amp; Compliance
+              </h3>
+              <div className="space-y-4">
+                {certifications.map((cert) => (
+                  <div
+                    key={cert.name}
+                    className="bg-white p-6 rounded-lg border-l-4 border-brand-red shadow-md"
+                  >
+                    <Shield className="w-6 h-6 text-brand-red mb-2" />
+                    <h4 className="font-heading text-lg font-bold text-brand-charcoal mb-2">
+                      {cert.name}
+                    </h4>
+                    <p className="text-gray-700 text-sm">{cert.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Equipment */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <h2 className="font-heading text-3xl font-bold text-brand-charcoal mb-8">
+            Equipment Available for Remediation Work
+          </h2>
+          <p className="text-gray-700 mb-8 max-w-3xl">
+            We maintain a comprehensive fleet of heavy equipment for remediation
+            and reclamation projects. Owning our own equipment means faster
+            mobilization, better cost control, and the ability to scale up
+            quickly for large or multi-site projects.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {equipment.map((item) => (
+              <div
+                key={item}
+                className="flex items-start bg-gray-50 p-4 rounded-lg border border-gray-200"
+              >
+                <Truck className="w-5 h-5 text-brand-red mr-3 flex-shrink-0 mt-0.5" />
+                <span className="text-gray-700 text-sm">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Case Studies */}
       <section className="section-padding bg-gray-50">
         <div className="container-wide">
           <h2 className="font-heading text-3xl font-bold text-brand-charcoal mb-12 text-center">
-            Certifications &amp; Compliance
+            Project Case Studies
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {certifications.map((cert) => (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {caseStudies.map((study) => (
               <div
-                key={cert.name}
-                className="bg-white p-8 rounded-lg border-l-4 border-brand-red shadow-md"
+                key={study.title}
+                className="bg-white rounded-lg border-2 border-gray-200 p-8 hover:border-brand-red hover:shadow-lg transition-all"
               >
-                <Shield className="w-8 h-8 text-brand-red mb-4" />
-                <h3 className="font-heading text-xl font-bold text-brand-charcoal mb-3">
-                  {cert.name}
+                <h3 className="font-heading text-lg font-bold text-brand-charcoal mb-4">
+                  {study.title}
                 </h3>
-                <p className="text-gray-700">{cert.description}</p>
+                <p className="text-gray-700 text-sm mb-6">{study.description}</p>
+                <div className="border-t border-gray-200 pt-4 space-y-2">
+                  {study.stats.map((stat) => (
+                    <div key={stat} className="flex items-center">
+                      <CheckCircle className="w-4 h-4 text-brand-red mr-2 flex-shrink-0" />
+                      <span className="text-sm font-semibold text-brand-charcoal">
+                        {stat}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -288,18 +458,28 @@ export default function RemediationPage() {
             <div className="space-y-4 text-gray-700">
               <p>
                 We perform environmental remediation projects across the entire
-                western Alberta region. Our base in Hinton provides efficient
-                access to oil and gas lease sites, pipeline corridors, and
-                industrial properties throughout the area.
+                western Alberta region. Our base in Hinton at 450 East River
+                Road provides efficient access to oil and gas lease sites,
+                pipeline corridors, and industrial properties throughout the
+                area.
               </p>
               <p>
-                With our own fleet of trucks and heavy equipment, we can mobilize
-                quickly to any site in the region. Our aggregate operations also
-                allow us to supply remediation projects with clean fill, topsoil,
-                and other reclamation materials from our own sources.
+                With our own fleet of trucks and heavy equipment, we can
+                mobilize quickly to any site in the region. Our aggregate
+                operations also allow us to supply remediation projects with
+                clean fill, topsoil, and other reclamation materials from our
+                own sources.
               </p>
               <div className="space-y-2 mt-6">
-                {['Hinton and surrounding area', 'Edson and Yellowhead County', 'Grande Cache and Greenview County', 'Whitecourt and Woodlands County', 'Jasper area and Highway 16 corridor', 'Remote lease sites and pipeline ROWs'].map((area) => (
+                {[
+                  'Hinton and surrounding area',
+                  'Edson and Yellowhead County',
+                  'Grande Cache and Greenview County',
+                  'Whitecourt and Woodlands County',
+                  'Drayton Valley and Brazeau County',
+                  'Jasper area and Highway 16 corridor',
+                  'Remote lease sites and pipeline ROWs',
+                ].map((area) => (
                   <div key={area} className="flex items-center">
                     <CheckCircle className="w-5 h-5 text-brand-red mr-3 flex-shrink-0" />
                     <span>{area}</span>
@@ -322,15 +502,19 @@ export default function RemediationPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-brand-red mr-3 mt-1 font-bold">3.</span>
-                  Mobilization and remediation execution
+                  Equipment mobilization and site preparation
                 </li>
                 <li className="flex items-start">
                   <span className="text-brand-red mr-3 mt-1 font-bold">4.</span>
-                  Revegetation and monitoring
+                  Remediation execution and quality control
                 </li>
                 <li className="flex items-start">
                   <span className="text-brand-red mr-3 mt-1 font-bold">5.</span>
-                  Documentation and regulatory submissions
+                  Revegetation and erosion control installation
+                </li>
+                <li className="flex items-start">
+                  <span className="text-brand-red mr-3 mt-1 font-bold">6.</span>
+                  Monitoring, documentation, and regulatory submissions
                 </li>
               </ul>
             </div>
@@ -344,7 +528,11 @@ export default function RemediationPage() {
           <h2 className="font-heading text-3xl font-bold text-brand-charcoal mb-12 text-center">
             Frequently Asked Questions
           </h2>
-          <div className="space-y-6" itemScope itemType="https://schema.org/FAQPage">
+          <div
+            className="space-y-6"
+            itemScope
+            itemType="https://schema.org/FAQPage"
+          >
             {faqs.map((faq) => (
               <div
                 key={faq.question}
@@ -360,7 +548,11 @@ export default function RemediationPage() {
                   <HelpCircle className="w-5 h-5 text-brand-red mr-3 mt-1 flex-shrink-0" />
                   {faq.question}
                 </h3>
-                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                <div
+                  itemScope
+                  itemProp="acceptedAnswer"
+                  itemType="https://schema.org/Answer"
+                >
                   <p className="text-gray-700 ml-8" itemProp="text">
                     {faq.answer}
                   </p>
@@ -376,10 +568,10 @@ export default function RemediationPage() {
         <div className="container-wide max-w-3xl text-center">
           <Star className="w-10 h-10 text-brand-red mx-auto mb-6" />
           <blockquote className="text-xl text-gray-700 italic mb-6">
-            &ldquo;WCC handled the full reclamation of three lease sites for us.
-            Their work was thorough, documentation was excellent, and we received
-            our reclamation certificates without issue. A trusted partner for
-            environmental work.&rdquo;
+            &ldquo;WCC handled the full reclamation of three lease sites for
+            us. Their work was thorough, documentation was excellent, and we
+            received our reclamation certificates without issue. A trusted
+            partner for environmental work in western Alberta.&rdquo;
           </blockquote>
           <p className="text-brand-charcoal font-semibold">
             &mdash; Western Alberta Energy Producer
@@ -395,12 +587,19 @@ export default function RemediationPage() {
           </h2>
           <p className="text-lg mb-8 max-w-2xl mx-auto text-red-100">
             Contact our team to discuss your remediation or reclamation project.
-            We provide detailed proposals and competitive pricing.
+            We provide detailed proposals, competitive pricing, and full
+            regulatory compliance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/contact"
+              href="/quote"
               className="inline-flex items-center px-8 py-3 bg-white text-brand-red font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              Request a Quote
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-8 py-3 bg-red-700 text-white font-semibold rounded-lg hover:bg-red-800 transition-colors border-2 border-red-600"
             >
               Contact Us
             </Link>
