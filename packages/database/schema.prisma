@@ -123,6 +123,91 @@ enum ProductCategory {
   EQUIPMENT
 }
 
+// --- WORK ORDER LIFECYCLE ENUMS ---
+
+enum PurchaseOrderStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  SENT_TO_CUSTOMER
+  ACCEPTED
+  REJECTED
+  CANCELLED
+}
+
+enum WorkOrderStatus {
+  PENDING
+  SCHEDULED
+  DISPATCHED
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum WorkOrderPriority {
+  LOW
+  NORMAL
+  HIGH
+  RUSH
+}
+
+enum TicketStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  DISPUTED
+  REVISED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  PENDING_APPROVAL
+  SENT
+  VIEWED
+  PARTIALLY_PAID
+  PAID
+  OVERDUE
+  VOID
+  WRITTEN_OFF
+}
+
+enum PaymentMethod {
+  CHEQUE
+  E_TRANSFER
+  CREDIT_CARD
+  CASH
+  WIRE
+  OTHER
+}
+
+enum EquipmentStatus {
+  AVAILABLE
+  IN_USE
+  MAINTENANCE
+  OUT_OF_SERVICE
+}
+
+enum EquipmentType {
+  TRUCK
+  TRAILER
+  EXCAVATOR
+  LOADER
+  CRUSHER
+  SKID_STEER
+  GRADER
+  COMPACTOR
+  OTHER
+}
+
+enum DriverStatus {
+  ACTIVE
+  OFF_DUTY
+  ON_LEAVE
+  TERMINATED
+}
+
 // ============================================================
 // AUTH & USERS
 // ============================================================
@@ -137,8 +222,12 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  approvedQuotes Quote[]    @relation("ApprovedBy")
-  callActions    CallAction[]
+  approvedQuotes    Quote[]        @relation("ApprovedBy")
+  callActions       CallAction[]
+  approvedPOs       PurchaseOrder[] @relation("POApprovedBy")
+  createdWorkOrders WorkOrder[]     @relation("WOCreatedBy")
+  reviewedTickets   Ticket[]        @relation("TicketReviewedBy")
+  approvedInvoices  Invoice[]       @relation("InvoiceApprovedBy")
 }
 
 // ============================================================
@@ -161,8 +250,11 @@ model Customer {
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 
-  quotes     Quote[]
-  phoneCalls PhoneCall[]
+  quotes         Quote[]
+  phoneCalls     PhoneCall[]
+  purchaseOrders PurchaseOrder[]
+  invoices       Invoice[]
+  payments       Payment[]
 
   @@index([type])
   @@index([city])
@@ -185,7 +277,9 @@ model Product {
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
 
-  quoteItems QuoteItem[]
+  quoteItems     QuoteItem[]
+  workOrderItems WorkOrderItem[]
+  ticketItems    TicketItem[]
 
   @@index([category])
 }
@@ -224,7 +318,8 @@ model Quote {
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 
-  items QuoteItem[]
+  items          QuoteItem[]
+  purchaseOrders PurchaseOrder[]
 
   @@index([status])
   @@index([customerId])
@@ -526,4 +621,344 @@ model Notification {
   @@index([read])
   @@index([userId])
   @@index([createdAt])
+}
+
+// ============================================================
+// DRIVERS & EQUIPMENT
+// ============================================================
+
+model Driver {
+  id            String       @id @default(cuid())
+  name          String
+  phone         String       @unique
+  email         String?
+  licenseClass  String?
+  licenseExpiry DateTime?
+  status        DriverStatus @default(ACTIVE)
+  hourlyRate    Float?
+  overtimeRate  Float?
+  notes         String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  workOrders WorkOrder[]
+  tickets    Ticket[]
+
+  @@index([status])
+  @@index([phone])
+}
+
+model Equipment {
+  id            String          @id @default(cuid())
+  name          String
+  type          EquipmentType
+  unitNumber    String          @unique
+  make          String?
+  model         String?
+  year          Int?
+  licensePlate  String?
+  status        EquipmentStatus @default(AVAILABLE)
+  hourlyRate    Float?
+  dailyRate     Float?
+  kmRate        Float?
+  currentKm     Float?
+  lastServiceAt DateTime?
+  nextServiceAt DateTime?
+  notes         String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  workOrders     WorkOrder[]
+  ticketEquipment TicketEquipmentUsage[]
+
+  @@index([status])
+  @@index([type])
+}
+
+// ============================================================
+// PURCHASE ORDERS (Quote → PO)
+// ============================================================
+
+model PurchaseOrder {
+  id              String              @id @default(cuid())
+  poNumber        String              @unique
+  quote           Quote?              @relation(fields: [quoteId], references: [id])
+  quoteId         String?
+  customer        Customer            @relation(fields: [customerId], references: [id])
+  customerId      String
+  status          PurchaseOrderStatus @default(DRAFT)
+  subtotal        Float               @default(0)
+  tax             Float               @default(0)
+  total           Float               @default(0)
+  deliveryAddress String?
+  deliveryCity    String?
+  projectName     String?
+  clientPONumber  String?
+  notes           String?
+  approvedBy      User?               @relation("POApprovedBy", fields: [approvedById], references: [id])
+  approvedById    String?
+  approvedAt      DateTime?
+  sentAt          DateTime?
+  acceptedAt      DateTime?
+  pdfUrl          String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+
+  items      PurchaseOrderItem[]
+  workOrders WorkOrder[]
+
+  @@index([status])
+  @@index([customerId])
+  @@index([createdAt])
+}
+
+model PurchaseOrderItem {
+  id              String        @id @default(cuid())
+  purchaseOrder   PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  purchaseOrderId String
+  description     String
+  quantity        Float
+  unitPrice       Float
+  unit            String        @default("tonne")
+  total           Float
+  notes           String?
+
+  @@index([purchaseOrderId])
+}
+
+// ============================================================
+// WORK ORDERS (PO → Work Order, dispatched to drivers)
+// ============================================================
+
+model WorkOrder {
+  id              String            @id @default(cuid())
+  workOrderNumber String            @unique
+  purchaseOrder   PurchaseOrder?    @relation(fields: [purchaseOrderId], references: [id])
+  purchaseOrderId String?
+  status          WorkOrderStatus   @default(PENDING)
+  priority        WorkOrderPriority @default(NORMAL)
+  driver          Driver?           @relation(fields: [driverId], references: [id])
+  driverId        String?
+  equipment       Equipment?        @relation(fields: [equipmentId], references: [id])
+  equipmentId     String?
+  createdBy       User?             @relation("WOCreatedBy", fields: [createdById], references: [id])
+  createdById     String?
+
+  // Job details
+  description     String?
+  pickupLocation  String?
+  deliveryAddress String?
+  deliveryCity    String?
+  deliveryContact String?
+  deliveryPhone   String?
+  scheduledDate   DateTime?
+  scheduledTime   String?
+  estimatedHours  Float?
+  specialInstructions String?
+
+  // Completion
+  startedAt       DateTime?
+  completedAt     DateTime?
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  items   WorkOrderItem[]
+  tickets Ticket[]
+
+  @@index([status])
+  @@index([driverId])
+  @@index([scheduledDate])
+  @@index([createdAt])
+}
+
+model WorkOrderItem {
+  id          String    @id @default(cuid())
+  workOrder   WorkOrder @relation(fields: [workOrderId], references: [id], onDelete: Cascade)
+  workOrderId String
+  product     Product?  @relation(fields: [productId], references: [id])
+  productId   String?
+  description String
+  quantity    Float
+  unit        String    @default("tonne")
+  notes       String?
+
+  @@index([workOrderId])
+}
+
+// ============================================================
+// TICKETS (Driver daily work records - SMS compatible)
+// ============================================================
+
+model Ticket {
+  id            String       @id @default(cuid())
+  ticketNumber  String       @unique
+  workOrder     WorkOrder?   @relation(fields: [workOrderId], references: [id])
+  workOrderId   String?
+  driver        Driver       @relation(fields: [driverId], references: [id])
+  driverId      String
+  status        TicketStatus @default(DRAFT)
+  date          DateTime     @default(now())
+
+  // Time tracking
+  startTime     String?
+  endTime       String?
+  hoursWorked   Float?
+  breakHours    Float?      @default(0)
+
+  // Distance tracking
+  startKm       Float?
+  endKm         Float?
+  totalKm       Float?
+
+  // Location
+  jobSite       String?
+  pickupSite    String?
+
+  // SMS submission data
+  rawSmsText    String?
+  parsedBySms   Boolean     @default(false)
+
+  // Review
+  reviewedBy    User?       @relation("TicketReviewedBy", fields: [reviewedById], references: [id])
+  reviewedById  String?
+  reviewedAt    DateTime?
+  reviewNotes   String?
+  driverNotes   String?
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  items         TicketItem[]
+  equipmentUsed TicketEquipmentUsage[]
+  invoice       Invoice?    @relation(fields: [invoiceId], references: [id])
+  invoiceId     String?
+
+  @@index([status])
+  @@index([driverId])
+  @@index([workOrderId])
+  @@index([date])
+  @@index([invoiceId])
+}
+
+model TicketItem {
+  id          String  @id @default(cuid())
+  ticket      Ticket  @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticketId    String
+  product     Product? @relation(fields: [productId], references: [id])
+  productId   String?
+  description String
+  quantity    Float
+  unit        String  @default("tonne")
+  unitPrice   Float   @default(0)
+  total       Float   @default(0)
+  notes       String?
+
+  @@index([ticketId])
+}
+
+model TicketEquipmentUsage {
+  id          String    @id @default(cuid())
+  ticket      Ticket    @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  ticketId    String
+  equipment   Equipment @relation(fields: [equipmentId], references: [id])
+  equipmentId String
+  hoursUsed   Float?
+  kmDriven    Float?
+  notes       String?
+
+  @@index([ticketId])
+  @@index([equipmentId])
+}
+
+// ============================================================
+// INVOICES (Tickets → Invoice)
+// ============================================================
+
+model Invoice {
+  id              String        @id @default(cuid())
+  invoiceNumber   String        @unique
+  customer        Customer      @relation(fields: [customerId], references: [id])
+  customerId      String
+  status          InvoiceStatus @default(DRAFT)
+
+  // Financials
+  subtotal        Float         @default(0)
+  taxRate         Float         @default(0.05)
+  tax             Float         @default(0)
+  total           Float         @default(0)
+  amountPaid      Float         @default(0)
+  amountDue       Float         @default(0)
+
+  // Terms
+  issuedDate      DateTime?
+  dueDate         DateTime?
+  paymentTerms    String?       @default("Net 30")
+
+  // Delivery
+  deliveryAddress String?
+
+  notes           String?
+  internalNotes   String?
+  pdfUrl          String?
+
+  approvedBy      User?         @relation("InvoiceApprovedBy", fields: [approvedById], references: [id])
+  approvedById    String?
+  approvedAt      DateTime?
+  sentAt          DateTime?
+  viewedAt        DateTime?
+  paidAt          DateTime?
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  items    InvoiceItem[]
+  tickets  Ticket[]
+  payments Payment[]
+
+  @@index([status])
+  @@index([customerId])
+  @@index([dueDate])
+  @@index([createdAt])
+}
+
+model InvoiceItem {
+  id          String  @id @default(cuid())
+  invoice     Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  invoiceId   String
+  description String
+  quantity    Float
+  unit        String  @default("tonne")
+  unitPrice   Float
+  total       Float
+  ticketRef   String?
+  notes       String?
+
+  @@index([invoiceId])
+}
+
+// ============================================================
+// PAYMENTS
+// ============================================================
+
+model Payment {
+  id            String        @id @default(cuid())
+  paymentNumber String        @unique
+  invoice       Invoice       @relation(fields: [invoiceId], references: [id])
+  invoiceId     String
+  customer      Customer      @relation(fields: [customerId], references: [id])
+  customerId    String
+  amount        Float
+  method        PaymentMethod
+  reference     String?
+  chequeNumber  String?
+  depositDate   DateTime?
+  notes         String?
+  receivedAt    DateTime      @default(now())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([invoiceId])
+  @@index([customerId])
+  @@index([receivedAt])
 }
