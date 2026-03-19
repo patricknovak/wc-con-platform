@@ -20,6 +20,7 @@ import {
   Ticket,
   Receipt,
   Truck,
+  GraduationCap,
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -64,6 +65,12 @@ const navSections: NavSection[] = [
       { href: `${PREFIX}/marketing`, label: 'Marketing', icon: Megaphone },
       { href: `${PREFIX}/analytics`, label: 'Analytics', icon: BarChart3 },
       { href: `${PREFIX}/integrations`, label: 'Integrations', icon: Puzzle },
+    ],
+  },
+  {
+    title: 'Training',
+    items: [
+      { href: `${PREFIX}/training`, label: 'Training & Features', icon: GraduationCap },
     ],
   },
 ];
